@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Abhishek Gambhir | Azure Data Engineer</title>
-<meta name="description" content="Abhishek Gambhir, Azure Data Engineer in Toronto. ETL/ELT pipelines on Azure Data Factory, Databricks, PySpark, Delta Lake and Synapse.">
+<meta name="description" content="Abhishek Gambhir is an Azure Data Engineer in Toronto who builds production ETL/ELT pipelines with Azure Data Factory, Databricks, PySpark, Delta Lake and Synapse.">
 <meta property="og:title" content="Abhishek Gambhir | Azure Data Engineer">
-<meta property="og:description" content="ETL/ELT pipelines on Azure Data Factory, Databricks, PySpark, Delta Lake and Synapse.">
+<meta property="og:description" content="Production ETL/ELT pipelines with Azure Data Factory, Databricks, PySpark, Delta Lake and Synapse. Explore my work, projects and skills.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D1628'/%3E%3Crect x='7' y='8' width='18' height='4' rx='1' fill='%23CD8D52'/%3E%3Crect x='7' y='14' width='18' height='4' rx='1' fill='%23B8C2D0'/%3E%3Crect x='7' y='20' width='18' height='4' rx='1' fill='%23E7BE45'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,6 +126,7 @@
   .nav { margin-left: auto; display: flex; gap: 1.5rem; }
   .nav a { text-decoration: none; color: var(--muted); font-size: .9375rem; }
   .nav a:hover { color: var(--text); }
+  .nav a[aria-current="true"] { color: var(--text); text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 8px; }
   .theme-toggle {
     width: 2.25rem; height: 2.25rem; border-radius: 50%;
     border: 1px solid var(--line); background: transparent; cursor: pointer;
@@ -394,7 +395,14 @@
   /* ---------- Contact ---------- */
   .contact-title { margin: 0; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 750; max-width: 18ch; }
   .contact-text { margin: 1rem 0 0; color: var(--muted); max-width: 55ch; }
-  .contact-email { margin: 1.75rem 0 0; font-size: clamp(1.05rem, 2.6vw, 1.5rem); }
+  .contact-email { margin: 1.75rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+  .contact-email a { font-size: clamp(1.05rem, 2.6vw, 1.5rem); overflow-wrap: anywhere; }
+  .copy-btn {
+    border: 1px solid var(--line-strong); background: transparent; border-radius: 999px;
+    padding: .35rem .85rem; font-size: .875rem; font-weight: 600; cursor: pointer; color: var(--muted);
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--text); }
+  .copy-btn.is-done { color: var(--ok); border-color: var(--ok); }
   .contact-email a { text-decoration-color: var(--gold); text-underline-offset: 5px; }
   .footer { padding: 2rem 0 3rem; color: var(--muted); font-size: var(--fs-small); border-top: 1px solid var(--line); }
 
@@ -512,7 +520,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2 class="section-title" id="skillsTitle">Skills</h2>
-        <p class="section-intro">Select a skill to see where I've used it in my work and projects.</p>
+        <p class="section-intro">Select a skill to see exactly where I've applied it, across my roles and projects.</p>
       </div>
       <div class="skill-groups" id="skillGroups"></div>
       <div class="filter-summary" id="filterSummary" hidden aria-live="polite"></div>
@@ -527,7 +535,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2 class="section-title" id="workTitle">Work</h2>
-        <p class="section-intro">Four roles from 2019 to now, run in order. Select a role to see what I did there.</p>
+        <p class="section-intro">Four roles, one direction: from building applications to engineering the data behind them. Select a role to see what I delivered.</p>
       </div>
       <ol class="pipeline" id="pipeline" aria-label="Career, oldest to newest"></ol>
       <div class="output" id="rolePanel" aria-live="polite"></div>
@@ -538,7 +546,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2 class="section-title" id="projectsTitle">Projects</h2>
-        <p class="section-intro">Open a project to see its data flow, what I built and the results.</p>
+        <p class="section-intro">The work behind the numbers. Open a project to see its data flow, what I built and what changed as a result.</p>
       </div>
       <table class="catalog" id="catalog">
         <thead>
@@ -575,9 +583,13 @@
 
   <section class="section" id="contact" aria-labelledby="contactTitle">
     <div class="wrap">
-      <h2 class="contact-title" id="contactTitle">Let's talk about your data platform.</h2>
-      <p class="contact-text">Email is the quickest way to reach me. I'm based in <span id="contactCity"></span>.</p>
-      <p class="contact-email" id="contactEmail"></p>
+      <h2 class="contact-title" id="contactTitle">Need data pipelines your team can rely on? Let's talk.</h2>
+      <p class="contact-text">Whether it's a role, a project or a question about Azure data engineering, I'd be glad to hear from you. I'm based in <span id="contactCity"></span>, and email is the quickest way to reach me.</p>
+      <div class="contact-email">
+        <a id="contactEmailLink" href="#contact"></a>
+        <button type="button" class="copy-btn" id="copyEmailButton">Copy email</button>
+        <span class="visually-hidden" id="copyStatus" aria-live="polite"></span>
+      </div>
       <div class="actions" id="contactActions"></div>
     </div>
   </section>
@@ -611,15 +623,16 @@ const SITE = {
   name: "Abhishek Gambhir",
   city: "Toronto, Ontario",
   // The email is stored in two parts so simple scrapers can't read it from the source.
-  emailUser: "abhishekgambhir18",
+  emailUser: "abhishekgambhir968",
   emailDomain: "gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/abhishek-gambhir",
   githubUrl: "",            // e.g. "https://github.com/your-username" (leave empty to hide)
   resumeFile: "resume.pdf", // put your CV next to index.html; the button hides if the file is missing
   summaryHtml:
-    "6+ years in IT, including about 3 in Azure data engineering. At Bell I build and maintain " +
-    "<strong>8+ production ETL/ELT pipelines</strong> on Azure Data Factory, Databricks and Synapse " +
-    "that process <strong>over 15 million</strong> customer, billing and service-usage records."
+    "I turn raw, scattered data into clean, reliable datasets that teams can report on with confidence. " +
+    "At Bell, that means <strong>8+ production ETL/ELT pipelines</strong> on Azure Data Factory, Databricks and Synapse, " +
+    "processing <strong>over 15 million</strong> customer, billing and service-usage records. " +
+    "6+ years in IT, including about 3 in Azure data engineering."
 };
 
 // Skills shown as filter chips. Each pattern is searched in role bullets and project text.
@@ -629,15 +642,16 @@ const SKILL_GROUPS = [
     { id: "databricks", label: "Azure Databricks", pattern: /Databricks/ },
     { id: "synapse", label: "Azure Synapse", pattern: /Synapse/ },
     { id: "adls", label: "ADLS Gen2 and Blob", pattern: /ADLS|Data Lake Storage|Blob Storage/ },
+    { id: "powerbi", label: "Power BI and Analysis Services", pattern: /Power BI|Analysis Services|\bAAS\b/ },
     { id: "azdo", label: "Azure DevOps", pattern: /Azure DevOps|WIQL/ }
   ]},
   { group: "Data engineering", skills: [
-    { id: "pyspark", label: "PySpark and Spark SQL", pattern: /PySpark|Spark SQL|Apache Spark|\bSpark\b/ },
+    { id: "pyspark", label: "PySpark and Spark SQL", pattern: /PySpark|Spark SQL|\bSpark\b/ },
     { id: "delta", label: "Delta Lake", pattern: /Delta Lake|Delta MERGE/ },
     { id: "sql", label: "SQL", pattern: /\bSQL\b/ },
-    { id: "medallion", label: "Medallion architecture", pattern: /Medallion|\bBronze\b|\bSilver\b|\bGold\b/ },
-    { id: "cdc", label: "CDC and incremental loads", pattern: /Change Data Capture|\bCDC\b|[Ii]ncremental|[Ww]atermark/ },
-    { id: "modeling", label: "Dimensional modeling", pattern: /[Dd]imensional|dimension tables|Slowly Changing|\bSCD\b/ },
+    { id: "medallion", label: "Medallion architecture", pattern: /[Mm]edallion|\bBronze\b|\bSilver\b|\bGold\b/ },
+    { id: "cdc", label: "CDC and incremental loads", pattern: /[Cc]hange data capture|\bCDC\b|[Ii]ncremental|[Ww]atermark/ },
+    { id: "modeling", label: "Dimensional modeling", pattern: /[Dd]imension|Slowly Changing|\bSCD\b|[Tt]abular model/ },
     { id: "quality", label: "Data quality", pattern: /[Dd]ata quality|[Rr]econciliation|[Ss]chema validation|[Dd]uplicate detection|[Vv]alidat/ }
   ]},
   { group: "Languages and frameworks", skills: [
@@ -669,24 +683,24 @@ const ROLES = [
     location: "India", start: "2019-09", end: "2022-03",
     metrics: ["60M+ users on Tata Neu", "3 Spring Boot microservices", "5 Tata products integrated"],
     points: [
-      "Contributed to the Tata Neu super-app launch, integrating 5 Tata products for a platform serving 60M+ users.",
-      "Developed three Spring Boot microservices (Invoice, Wallet, and Refund) for transaction processing, resolving production issues to keep payments reliable.",
-      "Integrated the Razorpay payment gateway and backend APIs, mapping responses to application workflows for accurate transaction handling.",
-      "Designed and built the payment module UI from scratch, integrating it with backend payment services.",
-      "Defined Git push rules and Swift coding-standard checks, and wrote unit tests to improve code quality and system reliability."
+      "Contributed to the launch of the Tata Neu super-app, integrating 5 Tata products into a platform serving 60M+ users.",
+      "Developed three Spring Boot microservices (Invoice, Wallet and Refund) for transaction processing, and resolved production issues to keep payments reliable.",
+      "Integrated the Razorpay payment gateway and backend APIs, mapping each response to the right app workflow for accurate transaction handling.",
+      "Designed and built the payment module UI from scratch and connected it to the backend payment services.",
+      "Defined Git push rules and Swift coding-standard checks, and wrote unit tests to raise code quality and reliability."
     ]
   },
   {
     id: "appinventiv", company: "AppInventiv", companyFull: "AppInventiv", role: "Software Engineer",
     location: "India", start: "2022-03", end: "2023-08",
-    metrics: ["100+ automated tests", "~50 production fixes in one week", "One codebase for 3 regions"],
+    metrics: ["100+ automated tests", "~50 production fixes in one week", "One codebase for 3 countries"],
     points: [
-      "Designed and developed backend REST APIs (Node.js, Express.js) for the in-app chatbot and promo popups, collaborating on schema and data-contract design over structured JSON.",
-      "Implemented Firebase analytics and monitoring to track user engagement, app performance, and chatbot usage metrics.",
-      "Developed and maintained a unified application codebase serving multiple regions (KSA, Kuwait, Oman) for a multi-million-user base.",
-      "Resolved ~50 production issues and cleared several pending user stories within a one-week window for the Kuwait release.",
-      "Wrote 100+ automated UI and integration tests (XCUITest) in the GitLab/Jenkins CI/CD pipeline, reducing manual regression testing and enabling releases every two weeks.",
-      "Refactored the architecture (MVC/MVP to MVVM), fixed memory leaks, and documented changes, improving page load times and app stability."
+      "Designed and built Node.js and Express.js REST APIs for the in-app chatbot and promotional pop-ups, including the schema and data contracts for their JSON payloads.",
+      "Added Firebase analytics and monitoring to track user engagement, app performance and chatbot usage.",
+      "Maintained a single, unified codebase serving a multi-million-user base across Saudi Arabia, Kuwait and Oman.",
+      "Resolved about 50 production issues and cleared outstanding user stories within one week to ship the Kuwait release.",
+      "Wrote 100+ automated UI and integration tests (XCUITest) in the GitLab and Jenkins CI/CD pipeline, reducing manual regression testing and enabling releases every two weeks.",
+      "Refactored the app architecture from MVC/MVP to MVVM, fixed memory leaks and documented the changes, improving page load times and stability."
     ]
   },
   {
@@ -694,14 +708,14 @@ const ROLES = [
     location: "Canada", start: "2024-09", end: "2025-08",
     metrics: ["Release checks: 5–10 min to seconds", "Status meetings: 30–40 min to ~15", "Jira and GitLab moved to Azure DevOps"],
     points: [
-      "Developed and maintained Python-based ETL and automation scripts to extract, transform, validate, and migrate enterprise application data, supporting reliable data processing and system integration across public-sector environments.",
-      "Designed and implemented Python scripts for Jira-to-Azure DevOps data migration, handling schema mapping, work-item transformations, data validation, and complex QA test-case structures while ensuring data accuracy and integrity.",
-      "Automated production release reporting and operational activities using Python and Bash scripting, reducing manual release-status verification from 5–10 minutes to seconds and improving operational efficiency.",
-      "Developed and maintained Azure DevOps dashboards using WIQL queries, providing visibility into work items, defects, sprint progress, and release activities while reducing status meeting duration from 30–40 minutes to approximately 15 minutes.",
-      "Configured and maintained Azure DevOps CI/CD pipelines using YAML, supporting automated builds, deployment consistency, and application delivery across enterprise development environments.",
-      "Supported GitLab-to-Azure DevOps repository migrations, maintaining source code integrity, version control practices, and integration with existing application development and deployment workflows.",
-      "Developed and enhanced Angular-based application components for the CDIS platform, integrating frontend functionality with backend data sources and supporting AODA accessibility requirements.",
-      "Collaborated with application developers, QA teams, DevOps engineers, and business stakeholders to troubleshoot application issues, validate migrated data, support production releases, and maintain technical documentation."
+      "Wrote and maintained Python ETL and automation scripts to extract, transform, validate and migrate enterprise application data across public-sector systems.",
+      "Built the Python scripts behind a Jira-to-Azure DevOps migration, handling schema mapping, work-item transformations, data validation and complex QA test-case structures while keeping data accurate and intact.",
+      "Turned a 5–10 minute manual release-status check into one that takes seconds by automating release reporting with Python and Bash.",
+      "Built Azure DevOps dashboards with WIQL queries covering work items, defects, sprint progress and releases, cutting status meetings from 30–40 minutes to about 15.",
+      "Configured and maintained YAML-based Azure DevOps CI/CD pipelines for automated builds and consistent deployments.",
+      "Supported GitLab-to-Azure DevOps repository migrations while preserving source code integrity, version control practices and existing deployment workflows.",
+      "Developed Angular components for the CDIS platform, connecting the front end to backend data sources and supporting AODA accessibility requirements.",
+      "Worked with developers, QA, DevOps engineers and business stakeholders to troubleshoot issues, validate migrated data, support production releases and keep technical documentation current."
     ]
   },
   {
@@ -709,16 +723,17 @@ const ROLES = [
     location: "Canada", start: "2025-08", end: null,
     metrics: ["8+ production pipelines", "15M+ records processed", "30% less data onboarding effort", "25% shorter pipeline runs"],
     points: [
-      "Developed and maintained 8+ production ETL/ELT pipelines using Azure Data Factory (ADF), Azure Databricks, PySpark, and SQL, processing over 15 million customer, billing, service usage, and operational records to support telecommunications analytics and enterprise reporting.",
-      "Designed and implemented automated data ingestion workflows using Azure Data Factory, Azure Data Lake Storage Gen2 (ADLS Gen2), and Azure Blob Storage, integrating structured and semi-structured data from relational databases, enterprise applications, and REST APIs into a centralized cloud data platform.",
-      "Built reusable PySpark, Spark SQL, and Databricks notebooks following Medallion Architecture (Bronze, Silver, Gold) to cleanse, standardize, and transform customer subscription, billing, and network operational datasets, reducing data onboarding effort by 30%.",
-      "Implemented incremental data ingestion and Change Data Capture (CDC) patterns using SQL watermarks, parameterized ADF pipelines, and Delta Lake MERGE operations to efficiently process new and updated customer, billing, and service records while minimizing unnecessary full-data reloads.",
-      "Developed dimensional data models, fact and dimension tables, and Slowly Changing Dimensions (SCD Type 1 and Type 2) to maintain historical customer and subscription information, supporting data warehousing, business intelligence, and reporting through Azure Synapse Analytics.",
-      "Optimized large-scale Apache Spark and Delta Lake processing workloads using partitioning, broadcast joins, Adaptive Query Execution (AQE), and SQL query optimization, reducing pipeline execution time by 25% and improving data processing efficiency.",
-      "Implemented automated data quality checks, source-to-target reconciliation, schema validation, duplicate detection, and audit logging to ensure data accuracy, completeness, and consistency across customer, billing, and telecommunications operational datasets.",
-      "Integrated Azure Databricks with Azure Synapse Analytics to deliver curated, analytics-ready datasets, enabling downstream reporting teams to analyze subscriber activity, service utilization, billing trends, and operational performance.",
-      "Managed metadata, pipeline dependencies, workload scheduling, and error-handling processes using Azure Data Factory and Databricks, improving workflow maintainability and supporting reliable execution of scheduled data processing jobs.",
-      "Supported production monitoring, incident investigation, performance troubleshooting, and CI/CD deployments using Azure DevOps, Git, and YAML pipelines, collaborating with data engineers, application teams, and business stakeholders to resolve pipeline failures and maintain reliable enterprise data delivery."
+      "Build and maintain 8+ production ETL/ELT pipelines with Azure Data Factory, Azure Databricks, PySpark and SQL, processing over 15 million customer, billing, service-usage and operational records for telecom analytics and enterprise reporting.",
+      "Designed automated ingestion from relational databases, enterprise applications and REST APIs into Azure Data Lake Storage Gen2 (ADLS Gen2) and Azure Blob Storage, bringing structured and semi-structured data onto one central cloud platform.",
+      "Cut data onboarding effort by 30% with reusable PySpark, Spark SQL and Databricks notebooks that cleanse, standardize and transform subscription, billing and network data across Bronze, Silver and Gold layers.",
+      "Replaced unnecessary full reloads with incremental loads and change data capture (CDC), using SQL watermarks, parameterized ADF pipelines and Delta Lake MERGE to apply only new and updated records.",
+      "Modeled fact and dimension tables with Slowly Changing Dimensions (SCD Type 1 and Type 2) to preserve customer and subscription history for warehousing and BI reporting in Azure Synapse Analytics.",
+      "Reduced pipeline execution time by 25% by tuning Spark and Delta Lake workloads with partitioning, broadcast joins, Adaptive Query Execution (AQE) and SQL query optimization.",
+      "Built automated data quality checks, including source-to-target reconciliation, schema validation, duplicate detection and audit logging, to keep customer, billing and operational data accurate, complete and consistent.",
+      "Integrated Azure Databricks with Azure Synapse Analytics to deliver curated, analytics-ready datasets on subscriber activity, service usage, billing trends and operational performance.",
+      "Used Azure Analysis Services (AAS) tabular models to support business intelligence and reporting in Power BI.",
+      "Manage metadata, pipeline dependencies, scheduling and error handling across Azure Data Factory and Databricks, keeping scheduled jobs reliable and easy to maintain.",
+      "Support production monitoring, incident investigation and performance troubleshooting, and deploy through Azure DevOps CI/CD with Git and YAML pipelines, working with engineers, application teams and stakeholders to resolve pipeline failures."
     ]
   }
 ];
@@ -727,64 +742,65 @@ const ROLES = [
 // repoUrl / demoUrl are optional: add links and the buttons appear in the project view.
 const PROJECTS = [
   {
-    id: "lakehouse", title: "Telecom lakehouse on medallion layers", where: "Bell", when: "2025 to now",
-    result: "8+ pipelines over 15M+ records",
-    problem: "Customer, billing, service-usage and network data came from relational databases, enterprise applications and REST APIs, each in its own shape. Reporting teams needed one consistent place to query it.",
+    id: "lakehouse", title: "A medallion lakehouse for telecom data", where: "Bell", when: "2025 to now",
+    result: "8+ pipelines, 15M+ records, 30% faster onboarding",
+    problem: "Customer, billing, usage and network data arrived from databases, enterprise applications and REST APIs, each in its own format. Reporting teams needed it in one place: cleaned, consistent and ready to query.",
     flow: [
       { layer: "source", title: "Sources", text: "Relational databases, enterprise apps, REST APIs" },
       { layer: "source", title: "Ingest", text: "Parameterized Azure Data Factory pipelines" },
-      { layer: "bronze", title: "Bronze", text: "Raw data landed in ADLS Gen2" },
+      { layer: "bronze", title: "Bronze", text: "Raw data landed as-is in ADLS Gen2" },
       { layer: "silver", title: "Silver", text: "PySpark notebooks cleanse and standardize" },
       { layer: "gold", title: "Gold", text: "Curated facts and dimensions in Delta Lake" },
-      { layer: "serve", title: "Serve", text: "Azure Synapse Analytics for reporting" }
+      { layer: "serve", title: "Serve", text: "Azure Synapse, plus AAS models for Power BI" }
     ],
     built: [
-      "Automated ingestion with Azure Data Factory into ADLS Gen2 and Blob Storage, covering structured and semi-structured sources.",
-      "Wrote reusable PySpark, Spark SQL and Databricks notebooks for each medallion layer.",
+      "Automated ingestion with Azure Data Factory into ADLS Gen2 and Blob Storage, covering both structured and semi-structured sources.",
+      "Wrote reusable PySpark, Spark SQL and Databricks notebooks for every medallion layer, so new datasets follow a proven path instead of starting from scratch.",
       "Connected Databricks to Azure Synapse so reporting teams get analytics-ready data on subscribers, usage and billing.",
+      "Supported business intelligence with Azure Analysis Services tabular models used in Power BI.",
       "Handled metadata, pipeline dependencies, scheduling and error handling across ADF and Databricks."
     ],
     results: ["8+ production pipelines", "15M+ records processed", "30% less data onboarding effort"],
-    stack: ["Azure Data Factory", "ADLS Gen2", "Blob Storage", "Azure Databricks", "PySpark", "Spark SQL", "Delta Lake", "Azure Synapse"],
+    stack: ["Azure Data Factory", "ADLS Gen2", "Blob Storage", "Azure Databricks", "PySpark", "Spark SQL", "Delta Lake", "Azure Synapse", "Azure Analysis Services", "Power BI"],
     repoUrl: "", demoUrl: ""
   },
   {
-    id: "incremental", title: "Incremental loads with CDC and SCD Type 2", where: "Bell", when: "2025 to now",
+    id: "incremental", title: "Incremental loading with CDC and history tracking", where: "Bell", when: "2025 to now",
     result: "25% shorter pipeline runs",
-    problem: "Reloading full customer, billing and service tables on every run wastes time and compute, and overwriting rows loses the history analysts rely on.",
+    problem: "Reloading entire customer and billing tables on every run wasted time and compute, and overwriting records erased the history analysts depend on.",
     flow: [
       { layer: "source", title: "Source tables", text: "Customer, billing and service records" },
       { layer: "source", title: "Watermark", text: "SQL lookup of the last processed change" },
       { layer: "bronze", title: "Copy changes", text: "Parameterized ADF copy of new and updated rows" },
-      { layer: "silver", title: "Delta MERGE", text: "Upsert changes instead of a full reload" },
-      { layer: "gold", title: "SCD Type 1 and 2", text: "Current values and full history in dimensions" },
+      { layer: "silver", title: "Delta MERGE", text: "Upsert the changes, no full reload" },
+      { layer: "gold", title: "SCD Type 1 and 2", text: "Current values plus full history" },
       { layer: "serve", title: "Synapse", text: "Warehouse and BI reporting" }
     ],
     built: [
       "Used SQL watermarks and parameterized ADF pipelines to pick up only new and updated records.",
-      "Applied changes with Delta Lake MERGE operations to avoid unnecessary full-data reloads.",
-      "Modeled fact and dimension tables with SCD Type 1 and Type 2 to keep customer and subscription history.",
+      "Applied those changes with Delta Lake MERGE operations instead of reloading whole tables.",
+      "Modeled fact and dimension tables with SCD Type 1 and Type 2 to keep a complete history of customer and subscription changes.",
       "Tuned Spark and Delta Lake jobs with partitioning, broadcast joins, Adaptive Query Execution and SQL query optimization."
     ],
-    results: ["25% shorter pipeline execution time", "Customer and subscription history kept with SCD Type 2"],
+    results: ["25% shorter pipeline execution time", "Customer and subscription history preserved with SCD Type 2"],
     stack: ["Azure Data Factory", "SQL", "Delta Lake", "PySpark", "Azure Databricks", "Azure Synapse"],
     repoUrl: "", demoUrl: ""
   },
   {
-    id: "quality", title: "Data quality and reconciliation checks", where: "Bell", when: "2025 to now",
-    result: "Automated checks on every load",
-    problem: "Billing and customer data feeds the reports people make decisions from, so bad, missing or duplicated rows can't slip through quietly.",
+    id: "quality", title: "Automated data quality and reconciliation", where: "Bell", when: "2025 to now",
+    result: "Every load checked automatically",
+    problem: "Billing and customer data drives business decisions, so bad, missing or duplicate records can't be allowed to slip through unnoticed.",
     flow: [
       { layer: "source", title: "Load arrives", text: "Customer, billing and operational data" },
-      { layer: "bronze", title: "Schema validation", text: "Expected columns and types" },
+      { layer: "bronze", title: "Schema validation", text: "Expected columns and types confirmed" },
       { layer: "silver", title: "Duplicate detection", text: "Repeated records flagged" },
       { layer: "silver", title: "Reconciliation", text: "Source compared with target" },
-      { layer: "gold", title: "Audit log", text: "Every run recorded for tracing" }
+      { layer: "gold", title: "Audit log", text: "Every run recorded and traceable" }
     ],
     built: [
-      "Implemented automated data quality checks, source-to-target reconciliation, schema validation and duplicate detection.",
-      "Added audit logging so every pipeline run can be traced.",
-      "Supported production monitoring and incident investigation, and deployed fixes through Azure DevOps CI/CD with Git and YAML pipelines."
+      "Implemented automated data quality checks: source-to-target reconciliation, schema validation and duplicate detection.",
+      "Added audit logging so every pipeline run can be traced end to end.",
+      "Supported production monitoring and incident investigation, shipping fixes through Azure DevOps CI/CD with Git and YAML pipelines."
     ],
     results: ["Accurate, complete and consistent customer and billing data", "Pipeline failures traced and resolved with application teams"],
     stack: ["PySpark", "SQL", "Delta Lake", "Azure Data Factory", "Azure DevOps", "YAML"],
@@ -793,38 +809,38 @@ const PROJECTS = [
   {
     id: "migration", title: "Jira to Azure DevOps migration", where: "Ontario Public Service", when: "2024 to 2025",
     result: "Work items and QA test cases moved intact",
-    problem: "The team was moving from Jira and GitLab to Azure DevOps. Work items, defects and complex QA test-case structures had to arrive accurate and complete.",
+    problem: "The team was consolidating its tooling in Azure DevOps. Jira work items, defects and intricate QA test cases had to move across accurately and completely.",
     flow: [
       { layer: "source", title: "Jira", text: "Issues, defects and QA test cases" },
       { layer: "bronze", title: "Extract", text: "Python scripts pull the data" },
-      { layer: "silver", title: "Map schema", text: "Fields, types and states mapped" },
-      { layer: "silver", title: "Transform", text: "Work items and test-case structures" },
-      { layer: "gold", title: "Validate", text: "Accuracy and integrity checks" },
-      { layer: "serve", title: "Azure DevOps", text: "Migrated work items" }
+      { layer: "silver", title: "Map schema", text: "Fields, types and states aligned" },
+      { layer: "silver", title: "Transform", text: "Work items and test-case structures rebuilt" },
+      { layer: "gold", title: "Validate", text: "Accuracy and integrity checked" },
+      { layer: "serve", title: "Azure DevOps", text: "Migrated, ready-to-use work items" }
     ],
     built: [
-      "Wrote Python scripts for the Jira-to-Azure DevOps data migration, handling schema mapping and work-item transformations.",
-      "Handled complex QA test-case structures and validated migrated data for accuracy and integrity.",
-      "Supported GitLab-to-Azure DevOps repository migrations while keeping source code integrity and existing workflows."
+      "Wrote the Python scripts for the Jira-to-Azure DevOps data migration, handling schema mapping and work-item transformations.",
+      "Carried complex QA test-case structures across and validated the migrated data for accuracy and integrity.",
+      "Supported the GitLab-to-Azure DevOps repository migration while keeping source code integrity and existing workflows intact."
     ],
     results: ["Validated migration of work items and QA test cases", "Repositories moved with source code integrity maintained"],
     stack: ["Python", "Azure DevOps", "Jira", "GitLab", "Git"],
     repoUrl: "", demoUrl: ""
   },
   {
-    id: "release", title: "Release reporting automation", where: "Ontario Public Service", when: "2024 to 2025",
-    result: "Release checks from 5–10 min to seconds",
-    problem: "Checking release status by hand took 5 to 10 minutes each time, and status meetings ran 30 to 40 minutes.",
+    id: "release", title: "Automated release reporting", where: "Ontario Public Service", when: "2024 to 2025",
+    result: "Release checks: 5–10 min to seconds",
+    problem: "Every release-status check took 5 to 10 minutes of manual work, and status meetings ran 30 to 40 minutes.",
     flow: [
       { layer: "source", title: "Azure DevOps", text: "Work items, defects and releases" },
-      { layer: "bronze", title: "WIQL queries", text: "Pull the exact items needed" },
+      { layer: "bronze", title: "WIQL queries", text: "Pull exactly the items needed" },
       { layer: "silver", title: "Python and Bash", text: "Scripts assemble release status" },
       { layer: "gold", title: "Dashboards", text: "Sprint, defect and release views" }
     ],
     built: [
-      "Automated production release reporting and operational tasks with Python and Bash scripts.",
+      "Automated production release reporting and routine operational tasks with Python and Bash scripts.",
       "Built Azure DevOps dashboards with WIQL queries for work items, defects, sprint progress and releases.",
-      "Configured and maintained Azure DevOps CI/CD pipelines in YAML for automated builds and consistent deployments."
+      "Configured and maintained YAML-based Azure DevOps CI/CD pipelines for automated builds and consistent deployments."
     ],
     results: ["Release-status checks: 5–10 minutes to seconds", "Status meetings: 30–40 minutes to about 15"],
     stack: ["Python", "Bash", "WIQL", "Azure DevOps", "YAML", "CI/CD"],
@@ -832,8 +848,8 @@ const PROJECTS = [
   },
   {
     id: "payments", title: "Payments for the Tata Neu super-app", where: "TCS", when: "2019 to 2022",
-    result: "Platform serving 60M+ users",
-    problem: "Tata Neu brought 5 Tata products into one app, and every purchase depended on payment services that stayed reliable.",
+    result: "Launch platform serving 60M+ users",
+    problem: "Tata Neu brought 5 Tata products into a single app, and every purchase depended on payment services that had to stay reliable.",
     flow: [
       { layer: "source", title: "Payment module", text: "App UI built from scratch" },
       { layer: "bronze", title: "Backend APIs", text: "Requests from the app" },
@@ -847,14 +863,14 @@ const PROJECTS = [
       "Designed and built the payment module UI and connected it to the backend payment services.",
       "Defined Git push rules and Swift coding-standard checks, and wrote unit tests."
     ],
-    results: ["Part of the Tata Neu launch, 60M+ users", "5 Tata products integrated"],
+    results: ["Part of the Tata Neu launch, serving 60M+ users", "5 Tata products integrated"],
     stack: ["Java", "Spring Boot", "Razorpay", "REST APIs", "Swift", "Git"],
     repoUrl: "", demoUrl: ""
   },
   {
     id: "rag", title: "MedlinePlus health Q&A with RAG", where: "Personal project", when: "",
     result: "Live demo on Hugging Face Spaces",
-    problem: "A question-answering app that grounds its answers in MedlinePlus health articles rather than the language model's memory.",
+    problem: "A question-answering app that grounds every answer in MedlinePlus health articles, rather than relying on what a language model happens to remember.",
     flow: [
       { layer: "source", title: "MedlinePlus", text: "Health articles as the source" },
       { layer: "bronze", title: "Chunk and embed", text: "sentence-transformers" },
@@ -863,7 +879,7 @@ const PROJECTS = [
       { layer: "serve", title: "App", text: "FastAPI and Gradio on Hugging Face Spaces" }
     ],
     built: [
-      "Built a retrieval-augmented generation (RAG) pipeline: embed MedlinePlus content, store vectors in Chroma, retrieve relevant passages for each question.",
+      "Built a retrieval-augmented generation (RAG) pipeline: embed MedlinePlus content, store the vectors in Chroma and retrieve the most relevant passages for each question.",
       "Generated answers with Llama 3.1 8B (llama-3.1-8b-instant) through Groq.",
       "Served it with FastAPI and a Gradio interface, deployed on Hugging Face Spaces."
     ],
@@ -903,7 +919,7 @@ const CERTIFICATIONS = [
 ];
 
 const COMPETENCIES = [
-  ["Cloud and Azure data platforms", "Microsoft Azure, Azure Data Factory (ADF), Azure Databricks, Azure Synapse Analytics, Azure Storage, Google Cloud Platform (GCP), Google Cloud Storage"],
+  ["Cloud and Azure data platforms", "Microsoft Azure, Azure Data Factory (ADF), Azure Databricks, Azure Synapse Analytics, Azure Storage, Azure Analysis Services (AAS), Power BI, Google Cloud Platform (GCP), Google Cloud Storage"],
   ["Programming and scripting", "Python, SQL, Java, JavaScript, TypeScript, Bash, Shell scripting"],
   ["Data engineering and ETL/ELT", "ETL/ELT pipelines, data ingestion, data integration, data transformation, data validation, data preprocessing, Medallion Architecture (Bronze, Silver, Gold), structured and unstructured data, schema design, data contracts, data quality"],
   ["Databases and data management", "MySQL, MongoDB, JSON, database integration, data processing, data storage"],
@@ -1004,7 +1020,9 @@ function renderHeroAndContact() {
   document.getElementById("heroSummary").innerHTML = SITE.summaryHtml;
   document.getElementById("heroActions").innerHTML = buildContactButtons(true);
   document.getElementById("contactCity").textContent = SITE.city;
-  document.getElementById("contactEmail").innerHTML = '<a href="mailto:' + getEmailAddress() + '">' + getEmailAddress() + "</a>";
+  const contactEmailLink = document.getElementById("contactEmailLink");
+  contactEmailLink.href = "mailto:" + getEmailAddress();
+  contactEmailLink.textContent = getEmailAddress();
   document.getElementById("contactActions").innerHTML = buildContactButtons(false);
   document.getElementById("footerText").textContent = "© " + new Date().getFullYear() + " " + SITE.name + ". Built with HTML, CSS and JavaScript.";
 
@@ -1283,6 +1301,55 @@ function initialise() {
   window.addEventListener("hashchange", () => {
     if (location.hash.startsWith("#project-")) openProject(location.hash.replace("#project-", ""));
   });
+
+  // Copy email to clipboard, with a visible and announced confirmation.
+  const copyEmailButton = document.getElementById("copyEmailButton");
+  copyEmailButton.addEventListener("click", () => {
+    const emailAddress = getEmailAddress();
+    const showCopied = () => {
+      copyEmailButton.textContent = "Email copied";
+      copyEmailButton.classList.add("is-done");
+      document.getElementById("copyStatus").textContent = "Email address copied to clipboard";
+      setTimeout(() => {
+        copyEmailButton.textContent = "Copy email";
+        copyEmailButton.classList.remove("is-done");
+        document.getElementById("copyStatus").textContent = "";
+      }, 2200);
+    };
+    const copyWithFallback = () => {
+      const hiddenField = document.createElement("textarea");
+      hiddenField.value = emailAddress;
+      hiddenField.setAttribute("readonly", "");
+      hiddenField.style.position = "fixed";
+      hiddenField.style.opacity = "0";
+      document.body.appendChild(hiddenField);
+      hiddenField.select();
+      try { document.execCommand("copy"); showCopied(); } catch (copyError) { /* leave the button unchanged */ }
+      hiddenField.remove();
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(emailAddress).then(showCopied).catch(copyWithFallback);
+    } else {
+      copyWithFallback();
+    }
+  });
+
+  // Underline the nav link for the section currently on screen.
+  if ("IntersectionObserver" in window) {
+    const navLinks = Array.from(document.querySelectorAll(".nav a"));
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => {
+          if (link.getAttribute("href") === "#" + entry.target.id) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    ["skills", "work", "projects", "education", "contact"].forEach(sectionId => {
+      sectionObserver.observe(document.getElementById(sectionId));
+    });
+  }
 
   // Play the hero cleanup once fonts are ready (or straight away if they take too long).
   const hero = document.querySelector(".hero");
